@@ -1,24 +1,25 @@
 # Telegram Moderation Bot
 
-Telegram-бот на Python для приёма пользовательских сообщений, очереди модерации и публикации в канал.
+A Python Telegram bot for collecting text and photo submissions, reviewing them
+through a moderation queue, and publishing approved content to a channel.
 
-## Возможности
+## Features
 
-- очередь текстовых сообщений и фотографий;
-- модерация через inline-кнопки;
-- роли администратора и главного администратора;
-- пользовательская репутация и временные блокировки;
-- сохранение состояния и резервная копия в JSON;
-- фоновые задачи: автосохранение, очистка, повторные запросы модерации и ежедневная статистика;
-- восстановление состояния после перезапуска.
+- Text and photo submission queues.
+- Moderation through inline buttons.
+- Administrator and main-administrator roles.
+- User reputation and temporary bans.
+- JSON state persistence and backups.
+- Background autosave, cleanup, moderation reminders, and daily statistics.
+- State recovery after a restart.
 
-## Стек
+## Technology stack
 
 - Python 3.11+
 - `python-telegram-bot`
 - `python-dotenv`
 
-## Быстрый запуск
+## Quick start
 
 ```bash
 python -m venv .venv
@@ -27,24 +28,26 @@ pip install -r requirements.txt
 cp .env.example .env       # Windows: copy .env.example .env
 ```
 
-Заполните `.env` своими значениями. Затем:
+Fill in `.env` with your configuration, then start the bot:
 
 ```bash
 python -m tg_bot.app
 ```
 
-## Конфигурация
+## Configuration
 
-Все чувствительные значения читаются из переменных окружения. Репозиторий намеренно не содержит токенов Telegram, идентификаторов реальных администраторов или runtime JSON с пользовательскими данными.
+Sensitive configuration is read from environment variables. The repository excludes
+Telegram tokens, real administrator IDs, and runtime JSON containing user data.
 
-| Переменная | Назначение |
-| --- | --- |
-| `BOT_TOKEN` | токен Telegram-бота |
-| `CHANNEL_ID` | канал для публикации |
-| `MAIN_ADMIN_ID` | Telegram ID главного администратора |
-| `ADMIN_SECRET_WORD` | секретное слово для admin flow |
-| `ADMIN_ACCESS_CODE` | код доступа администратора |
-| `DATA_FILE` | основной JSON-файл состояния |
-| `BACKUP_FILE` | резервный JSON-файл |
+| Variable | Purpose |
+|---|---|
+| `BOT_TOKEN` | Telegram bot token |
+| `CHANNEL_ID` | Destination channel |
+| `MAIN_ADMIN_ID` | Main administrator's Telegram ID |
+| `ADMIN_SECRET_WORD` | Secret phrase for the admin flow |
+| `ADMIN_ACCESS_CODE` | Administrator access code |
+| `DATA_FILE` | Main state JSON file |
+| `BACKUP_FILE` | State backup JSON file |
 
-> Перед публикацией этой версии старый токен из исходного локального проекта был удалён. Если он когда-либо использовался, его следует перевыпустить через BotFather.
+> An old token from the original local project was removed before this version
+> was published. If it was ever used, revoke and replace it through BotFather.
