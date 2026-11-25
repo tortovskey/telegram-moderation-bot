@@ -106,6 +106,10 @@ def load_bot_data() -> bool:
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
 
+        # JSON object keys are strings, while Telegram lookups use integer user IDs.
+        reputation = {int(uid): value for uid, value in data.get("user_reputation", {}).items()}
+        blocks = {int(uid): value for uid, value in data.get("user_blocks", {}).items()}
+
         # очередь сообщений
         state.messages_queue[:] = [
             _deserialize_message(msg)
@@ -114,11 +118,11 @@ def load_bot_data() -> bool:
 
         # репутация
         state.user_reputation.clear()
-        state.user_reputation.update(data.get("user_reputation", {}))
+        state.user_reputation.update(reputation)
 
         # блокировки
         state.user_blocks.clear()
-        state.user_blocks.update(data.get("user_blocks", {}))
+        state.user_blocks.update(blocks)
 
         # список админов (гарантируем, что главный не потеряется)
         admins_from_file = data.get("admins_list", [MAIN_ADMIN_ID])

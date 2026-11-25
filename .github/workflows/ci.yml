@@ -16,3 +16,4 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m compileall -q tg_bot
+      - run: python -m unittest discover -s tests -v
